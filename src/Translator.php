@@ -763,7 +763,7 @@ class Translator
                 if ($usingGlossary) {
                     throw new GlossaryNotFoundException("Glossary not found$message");
                 }
-                throw new NotFoundException("Not found, check server_url$message");
+                throw new NotFoundException("Not found$message");
             case 400:
                 throw new DeepLException("Bad request$message");
             case 429:
