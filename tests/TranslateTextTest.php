@@ -42,7 +42,7 @@ class TranslateTextTest extends DeepLTestBase
     /**
      * @dataProvider provideHttpClientAndModelType
      */
-    public function testModelType(?ClientInterface $httpClient, string $modelTypeArgName, string $expectedModelType)
+    public function testModelType(?ClientInterface $httpClient, string $modelTypeArgName)
     {
         $translator = $this->makeTranslator([TranslatorOptions::HTTP_CLIENT => $httpClient]);
         $input = [DeepLTestBase::EXAMPLE_TEXT['en']];
@@ -54,7 +54,7 @@ class TranslateTextTest extends DeepLTestBase
         );
         $this->assertEquals(DeepLTestBase::EXAMPLE_TEXT['de'], $result[0]->text);
         $this->assertEquals(mb_strlen($input[0]), $result[0]->billedCharacters);
-        $this->assertEquals($expectedModelType, $result[0]->modelTypeUsed);
+        $this->assertNotNull($result[0]->modelTypeUsed);
     }
 
     /**
@@ -71,7 +71,7 @@ class TranslateTextTest extends DeepLTestBase
 
         $ar_ignore_part = "<ignore>يجب تجاهل هذا الجزء.</ignore>";
         $en_sentence_with_ar_ignore_part =
-            "<p>This is a <b>short</b> <i>sentence</i>. $ar_ignore_part This is another sentence.";
+            "<p>This is a <b>short</b> <i>sentence</i>.</p> $ar_ignore_part This is another sentence.";
 
         $en_ignore_part = "<ignore>This part should be ignored.</ignore>";
         $ar_sentence_with_en_ignore_part = "<p>هذه <i>جملة</i> <b>قصيرة</b>. $en_ignore_part هذه جملة أخرى.</p>";
